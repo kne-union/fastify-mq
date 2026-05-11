@@ -1,6 +1,6 @@
 {
   "name": "@kne/fastify-mq",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reliable message queue plugin for Fastify based on PostgreSQL, supporting at-least-once delivery, DLQ, delayed messages, priority, tracing and Kafka migration",
   "main": "index.js",
   "scripts": {
