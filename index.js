@@ -65,10 +65,23 @@ module.exports = fp(async (fastify, options) => {
 
   // Metrics endpoint
   if (registry) {
-    fastify.get(`${options.prefix}/metrics`, async (request, reply) => {
-      reply.type('text/plain');
-      return registry.metrics();
-    });
+    fastify.get(
+      `${options.prefix}/metrics`,
+      {
+        schema: {
+          tags: ['消息队列-监控'],
+          summary: 'Prometheus 指标',
+          description: '以 Prometheus 文本格式输出当前进程内的队列深度、消费成功/失败、进入死信等计数指标',
+          response: {
+            200: { description: 'text/plain 格式的 Prometheus 指标文本' }
+          }
+        }
+      },
+      async (request, reply) => {
+        reply.type('text/plain');
+        return registry.metrics();
+      }
+    );
   }
 
   // Start sampler
